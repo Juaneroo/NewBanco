@@ -10,22 +10,22 @@ namespace BancoAPP
         public string nombre;
         private int monto;
 
-        public Cliente()
+        public Cliente(string nom)
         {
-            string nom;
+            
             nombre = nom;
             monto = 0;
         }
 
-        public void Depositar()
+        public void Depositar(int m)
         {
-            int m;
+            
             monto = monto + m;
         }
 
-        public void Retirar()
+        public void Retirar(int ret)
         {
-            int ret;
+            
             monto = monto - ret;
         }
 
@@ -38,6 +38,8 @@ namespace BancoAPP
         {
             Console.WriteLine(nombre + " tiene depositado la suma de " + monto);
         }
+
+        
     }
 
     class Banco
@@ -59,28 +61,52 @@ namespace BancoAPP
 
         public void TotalDepositos()
         {
-            int total = Usuario1.RetornarMonto() +
-                    Usuario2.RetornarMonto() +
-                    Usuario3.RetornarMonto();
+            int total = Usuario1.RegresarDinero() +
+                    Usuario2.RegresarDinero() +
+                    Usuario3.RegresarDinero();
             Console.WriteLine("El dinero depositado en el banco es:" + total);
             Usuario1.Imprimir();
-            Usario2.Imprimir();
+            Usuario2.Imprimir();
             Usuario3.Imprimir();
         }
+
+        public void Operaciones()
+        {
+            String mDepositar, mRetirar, mOperar;
+            int mDeposito, mRetiro;
+
+            Console.WriteLine("Por favor ingrese su Usuario");
+            mOperar = Console.ReadLine();
+
+            if (mOperar==Usuario1.nombre)
+            {
+
+            }
+        }
+
+
+
 
         static void Main(string[] args)
         {
             string strEleccion;
             int intEleccion;
+            
             Banco banco1 = new Banco();
             do
             {
                 Console.Write("Bienvenido al grupo Bancario. Si desea depositar marque 1, Si desea retirar marque 2: Si desea finalizar la operación marca 0. ");
-                
+                strEleccion = Console.ReadLine();
+                intEleccion = int.Parse(strEleccion);
+
+                if (intEleccion!=0)
                 {
-                    banco1.Operar(intEleccion);
+                    banco1.Operaciones();
                 }
+
             } while (intEleccion != 0);
+
+
             banco1.TotalDepositos();
             Console.ReadKey();
         }
