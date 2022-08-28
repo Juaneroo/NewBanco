@@ -70,18 +70,68 @@ namespace BancoAPP
             Usuario3.Imprimir();
         }
 
-        public void Operaciones()
+        public void Operar(int opcion)
         {
-            String mDepositar, mRetirar, mOperar;
-            int mDeposito, mRetiro;
+            string montoDepositar, montoRetirar, nombreOperar;
+            int montoDeposito, montoRetiro;
 
-            Console.WriteLine("Por favor ingrese su Usuario");
-            mOperar = Console.ReadLine();
+            Console.Write("Ingresa tu nombre por favor: ");
+            nombreOperar = Console.ReadLine();
 
-            if (mOperar==Usuario1.nombre)
+            if (int opcion == 1)
             {
+                Console.Write("Ingresa el monto a depositar: ");
+                montoDepositar = Console.ReadLine();
+                montoDeposito = int.Parse(montoDepositar);
+
+                if (nombreOperar == Usuario1.nombre)
+                {
+                    Usuario1.Depositar(montoDeposito);
+                }
+                else if (nombreOperar == Usuario2.nombre)
+                {
+                    Usuario2.Depositar(montoDeposito);
+                }
+                else if (nombreOperar == Usuario3.nombre)
+                {
+                    Usuario3.Depositar(montoDeposito);
+                }
+                else
+                {
+                    Console.Write("Nombre no registrado: ");
+                }
 
             }
+            else if (int opcion == 2)
+            {
+
+                Console.Write("Ingresa el monto a retirar: ");
+                montoRetirar = Console.ReadLine();
+                montoRetiro = int.Parse(montoRetirar);
+
+                if (nombreOperar == Usuario1.nombre)
+                {
+                    Usuario1.Retirar(montoRetiro);
+                }
+                else if (nombreOperar == Usuario2.nombre)
+                {
+                    Usuario2.Retirar(montoRetiro);
+                }
+                else if (nombreOperar == Usuario3.nombre)
+                {
+                    Usuario3.Retirar(montoRetiro);
+                }
+                else
+                {
+                    Console.Write("Nombre no registrado: ");
+                }
+            }
+            else
+            {
+                Console.Write("Opción no valida");
+
+            }
+
         }
 
 
@@ -89,26 +139,48 @@ namespace BancoAPP
 
         static void Main(string[] args)
         {
-            string strEleccion;
-            int intEleccion;
-            
+            bool salir = false;
             Banco banco1 = new Banco();
-            do
+
+            while (!salir)
             {
-                Console.Write("Bienvenido al grupo Bancario. Si desea depositar marque 1, Si desea retirar marque 2: Si desea finalizar la operación marca 0. ");
-                strEleccion = Console.ReadLine();
-                intEleccion = int.Parse(strEleccion);
 
-                if (intEleccion!=0)
+                try
                 {
-                    banco1.Operaciones();
+
+                    Console.WriteLine("1. Si desea guardar dinero marque 1");
+                    Console.WriteLine("2. Si desea retirar dinero marque 2");
+                    Console.WriteLine("3. Si desea salir del menú marque 3");
+                    Console.WriteLine("Elige una de las opciones");
+                    int opcion = Convert.ToInt32(Console.ReadLine());
+
+                    switch (opcion)
+                    {
+                        case 1:
+                            Console.WriteLine("Has elegido depositar dinero");
+                            break;
+
+                        case 2:
+                            Console.WriteLine("Has elegido retirar dinero");
+                            break;
+
+                        case 3:
+                            Console.WriteLine("Has elegido salir del menú");
+                            salir = true
+                            break;
+            |               default:
+                            Console.WriteLine("Por favor elige una opcion entre 1 y 3");
+                            break;
+                    }
+
                 }
-
-            } while (intEleccion != 0);
-
-
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
             banco1.TotalDepositos();
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 }
